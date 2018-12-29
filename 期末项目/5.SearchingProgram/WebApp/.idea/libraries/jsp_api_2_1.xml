@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="jsp-api-2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../library/jsp-api-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/servlet-api-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/neo4j-jdbc-2.0.1-SNAPSHOT-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/mysql-connector-java-8.0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/commons-collections-3.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/hadoop-common-2.7.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/hadoop-common-2.6.0-cdh5.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../library/hive-jdbc-1.1.0-cdh5.5.0-standalone.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

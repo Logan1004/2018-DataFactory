@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Mysql - dwh" uuid="e0889d6b-140b-413e-a499-2fa41f775786">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://10.60.42.201:3307/movie</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Hive - IBM" uuid="2099dc57-f6f6-4b1e-8593-bd6ec3982511">
+      <driver-ref>41bf2d4d-606b-490d-ab58-b559c4dd2ba8</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>org.apache.hive.jdbc.HiveDriver</jdbc-driver>
+      <jdbc-url>jdbc:hive2://10.60.42.201:10001</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Hive Data Source -" uuid="a85aab2e-17a1-4e54-93db-f532d4816ed8">
+      <driver-ref>41bf2d4d-606b-490d-ab58-b559c4dd2ba8</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>org.apache.hive.jdbc.HiveDriver</jdbc-driver>
+    </data-source>
+  </component>
+</project>

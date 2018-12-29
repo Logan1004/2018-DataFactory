@@ -45,9 +45,9 @@ ETL脚本共分为4个文件夹，各文件夹下脚本含义如下：
      - ​
    - hive
    - neo4j
-     - LoadtoNeo4j(movieinfo).py 
+     - **LoadtoNeo4j(movieinfo).py** 
        - 建立电影关系表，根据和电影有关的一系列信息，新建actor、director、studio、starring等节点，并相应建立各自的关系信息
-     - LoadtoNeo4j(cooperateInfo).py
+     - **LoadtoNeo4j(cooperateInfo).py**
        - 建立合作关系表，根据合作关系，新建actor、director、starring、genre等节点，并相应建立各自的关系信息，统计相互的合作次数以及导演风格。
    - influxdb
 

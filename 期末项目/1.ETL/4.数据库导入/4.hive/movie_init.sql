@@ -106,3 +106,6 @@ create table writer_write_movies
   movie_id string
 ) row format delimited fields terminated by ','
 ;
+create table genre (id int, type string) row format  delimited fields terminated by ',';
+create table star_starring_movie (actor_id int, movie_id string) row format  delimited fields terminated by ',';
+create table movie_has_genre (genre_id int, movie_id string) row format  delimited fields terminated by ',';

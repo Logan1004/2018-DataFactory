@@ -8,7 +8,7 @@ ETL脚本共分为4个文件夹，各文件夹下脚本含义如下：
 
    - 处理原始的9G评论数据，从中提取出产品的相关信息，其中：
 
-     - **ExtractProductID.cpp  **
+     - **ExtractProductID.cpp**
 
      - **ExtractProductID(java).java** 
 

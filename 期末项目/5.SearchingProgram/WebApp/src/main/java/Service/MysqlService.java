@@ -1,8 +1,11 @@
 package Service;
 
+import Connections.ConnectToMysql;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class MysqlService {
@@ -45,7 +48,7 @@ public class MysqlService {
             if (resultSet.next()){
                 count = resultSet.getInt(1);
             }
-            System.out.println(d2 - d1 + "ms");
+            //System.out.println(d2 - d1 + "ms");
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -171,7 +174,7 @@ public class MysqlService {
             if (resultSet.next()){
                 count = resultSet.getInt(1);
             }
-            System.out.println(d2 - d1 + "ms");
+            //System.out.println(d2 - d1 + "ms");
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -268,6 +271,41 @@ public class MysqlService {
         resultSet.close();
         preparedStatement.close();
         return directors;
+    }
+
+    public HashMap<String,Integer> anyTime(int start,int end) throws Exception{
+        HashMap<String,Integer> hashMap = new HashMap<String, Integer>();
+        MysqlService mysqlService = new MysqlService(ConnectToMysql.getConnection());
+        for (int i=start;i<=end;i++){
+            for (int j=1;j<=12;j++){
+                int count = mysqlService.getMovieCountByYearAndMonth(i,j);
+                hashMap.put(i+"-"+j,count);
+            }
+
+        }
+        return hashMap;
+    }
+
+    public HashMap<String, Integer> anyFormat() throws SQLException {
+        String sql = "select movie.name, count(1) as count1 from movie_has_format, movie where movie_id = movie.id group by movie_id order by count1 desc";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
+        while (resultSet.next()){
+            hashMap.put(resultSet.getString(1), resultSet.getInt(2));
+        }
+        return hashMap;
+    }
+
+    public ArrayList<String> getAllGenre() throws SQLException {
+        ArrayList<String> arrayList = new ArrayList<String>();
+        String sql = "select type from genre";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            arrayList.add(resultSet.getString(1).replace("\r",""));
+        }
+        return arrayList;
     }
 
 

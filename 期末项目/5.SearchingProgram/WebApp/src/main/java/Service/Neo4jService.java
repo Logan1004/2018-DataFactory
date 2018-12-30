@@ -4,7 +4,9 @@ import Connections.ConnectToNeo4j;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Neo4jService {
     private Connection connection = null;
@@ -30,7 +32,7 @@ public class Neo4jService {
             if (resultSet.next()) {
                 count = resultSet.getInt(1);
             }
-            System.out.println(d2 - d1 + "ms");
+            //System.out.println(d2 - d1 + "ms");
             resultSet.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -233,6 +235,57 @@ public class Neo4jService {
             e.printStackTrace();
         }
         return count;
+    }
+
+    /**
+     * 输入语言 返回电影数目
+     * @param language 语言
+     * @return 电影数目
+     */
+    public Integer getMovieNumByLanguage(String language){
+        String sql = "MATCH (n:Language)-[]-(m:Movie) where n.name = {1} return count(m)";
+        PreparedStatement preparedStatement = null;
+        int count = 0;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            preparedStatement.setString(1,language);
+            count = timeConsuming(preparedStatement);
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+//    Match (n:Director)-[t]-(m:Actor) where t.times > 3 return n,t.times,m limit 100
+    public ArrayList<String> getCooperate() {
+        ArrayList<String> arrayList = new ArrayList<String>();
+        String sql = "Match (n:Director)-[t]-(m:Actor) where t.times > 3 return n,t.times,m limit 100";
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String director = resultSet.getString(1).replace("\r","");
+                String actor = resultSet.getString(3).replace("\r","");
+                int count = resultSet.getInt(2);
+                arrayList.add(director + "/" + count + "/" + actor);
+            }
+            //System.out.println(d2 - d1 + "ms");
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
     }
 
 

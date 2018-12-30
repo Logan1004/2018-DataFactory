@@ -110,6 +110,56 @@ public class ConnectToInfluxdb {
     public void setDatabase(String database) {
         this.db = database;
     }
+    /**
+     * 输入查询开始时间与结束时间，输出该时间段内的电影数量
+     * @param starttime 查询开始时间，endtime 查询结束时间
+     * @return 上映电影数
+     */
+    public QueryResult getCountByTime(String starttime,String endtime){
+
+        String sql= "SELECT count(\"id\") AS \"count_watchNum\" FROM \"newdb\".\"autogen\".\"test\" WHERE time > '"+starttime+"' AND time <='"+endtime+"'";
+        return query(sql);
+    }
+    /**
+     * 输入电影类型，输出该类型的电影数量
+     * @param genre 电影类型
+     * @return 上映电影数
+     */
+    public QueryResult getCountByGenre(String genre){
+
+        String sql= "SELECT count(\"watchNum\") AS \"mean_watchNum\" FROM \"mydb\".\"autogen\".\"test\" WHERE \"genre\"=~ /"+genre+"/";
+        return query(sql);
+    }
+    /**
+     * 输入电影类型,初始时间，结束时间，时间间隔，输出该类型电影在每个时间间隔内的观看人数
+     * @param genre 电影类型 gourByTime 时间间隔，starttime 查询开始时间， endtime 查询结束时间
+     * @return 该类型每个时间间隔内的观看总人数
+     */
+    public QueryResult getWatchNumListByGenre(String genre,String groupTime,String starttime,String endtime){
+
+        String sql= "SELECT sum(\"watchNum\") AS \"sum_watchNum\" FROM \"mydb\".\"autogen\".\"test\" WHERE time >= '"+starttime+"' AND time <='"+endtime+"' AND \"genre\"=~ /"+genre+"/ group by time("+groupTime+")";
+        return query(sql);
+    }
+
+    /**
+     * 输入电影类型,初始时间，结束时间，时间间隔，输出该类型电影在每个时间间隔内的电影上映数
+     * @param genre 电影类型 gourByTime 时间间隔，starttime 查询开始时间， endtime 查询结束时间
+     * @return 该类型每个时间间隔内的电影上映数
+     */
+    public QueryResult getCountListByGenre(String genre,String groupTime,String starttime,String endtime){
+
+        String sql= "SELECT count(\"watchNum\") AS \"sum_watchNum\" FROM \"mydb\".\"autogen\".\"test\" WHERE time >= '"+starttime+"' AND time <='"+endtime+"' AND \"genre\"=~ /"+genre+"/ group by time("+groupTime+")";
+        return query(sql);
+    }
+    /**
+     * 输入电影类型,初始时间，结束时间，时间间隔，输出该类型电影在该时间内观影人数最多的时间与观看人数
+     * @param genre 电影类型 gourByTime 时间间隔，starttime 查询开始时间， endtime 查询结束时间
+     * @return 时间及观看人数
+     */
+    public QueryResult getWatchNumTop(String genre,String groupTime,String starttime,String endtime){
+        String sql= "SELECT TOP(\"sum_watchNum\",1)FROM(SELECT sum(\"watchNum\") AS \"sum_watchNum\" FROM \"mydb\".\"autogen\".\"test\" WHERE time >= '"+starttime+"' AND time <='"+endtime+"' AND \"genre\"=~ /"+genre+"/ group by time("+groupTime+"))";
+        return query(sql);
+    }
 }
 
 
